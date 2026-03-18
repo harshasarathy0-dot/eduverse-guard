@@ -4,6 +4,7 @@ import {
   LayoutDashboard, Users, GraduationCap, BookOpen, Shield,
   ChevronLeft, ChevronRight, LogOut, UserCheck, Calendar,
   FileText, Globe, BookMarked, DollarSign, Activity, Monitor, Lock,
+  Clock, Award, TrendingUp, Briefcase, MessageSquareWarning,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth, type UserRole } from "@/lib/authContext";
@@ -24,9 +25,16 @@ const navItems: NavItem[] = [
   { label: "Staff", icon: Users, path: "/staff", roles: ["admin"], section: "Academic" },
   { label: "Courses", icon: BookOpen, path: "/courses", roles: ["admin", "staff", "student", "parent"], section: "Academic" },
   { label: "Subjects", icon: BookMarked, path: "/subjects", roles: ["admin", "staff", "student", "parent"], section: "Academic" },
+  { label: "Timetable", icon: Clock, path: "/timetable", roles: ["admin", "staff", "student", "parent"], section: "Academic" },
   { label: "Sessions", icon: Calendar, path: "/sessions", roles: ["admin"], section: "Academic" },
   { label: "Attendance", icon: UserCheck, path: "/attendance", roles: ["admin", "staff", "student", "parent"], section: "Academic" },
   { label: "Assignments", icon: FileText, path: "/assignments", roles: ["admin", "staff", "student"], section: "Academic" },
+  { label: "Exam Results", icon: Award, path: "/exam-results", roles: ["admin", "staff", "student", "parent"], section: "Academic" },
+  { label: "Performance", icon: TrendingUp, path: "/performance", roles: ["admin", "staff", "student", "parent"], section: "Academic" },
+
+  // Placement
+  { label: "Placement", icon: Briefcase, path: "/placement", roles: ["admin", "staff", "student"], section: "Career" },
+  { label: "Complaints", icon: MessageSquareWarning, path: "/complaints", roles: ["admin", "student"], section: "Career" },
 
   // Finance
   { label: "Fees", icon: DollarSign, path: "/fees", roles: ["admin", "staff", "student", "parent"], section: "Finance" },

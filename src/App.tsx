@@ -18,6 +18,11 @@ import FeesPage from "./pages/FeesPage";
 import ActivityLogsPage from "./pages/ActivityLogsPage";
 import SessionManagementPage from "./pages/SessionManagementPage";
 import MySecurityPage from "./pages/MySecurityPage";
+import TimetablePage from "./pages/TimetablePage";
+import ExamResultsPage from "./pages/ExamResultsPage";
+import PlacementPage from "./pages/PlacementPage";
+import ComplaintsPage from "./pages/ComplaintsPage";
+import PerformancePage from "./pages/PerformancePage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFound";
 import { ReactNode } from "react";
@@ -55,6 +60,11 @@ const App = () => (
             <Route path="/sessions" element={<ProtectedRoute roles={["admin"]}><SessionsPage /></ProtectedRoute>} />
             <Route path="/attendance" element={<ProtectedRoute><AttendancePage /></ProtectedRoute>} />
             <Route path="/assignments" element={<ProtectedRoute roles={["admin", "staff", "student"]}><AssignmentsPage /></ProtectedRoute>} />
+            <Route path="/timetable" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><TimetablePage /></ProtectedRoute>} />
+            <Route path="/exam-results" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><ExamResultsPage /></ProtectedRoute>} />
+            <Route path="/performance" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><PerformancePage /></ProtectedRoute>} />
+            <Route path="/placement" element={<ProtectedRoute roles={["admin", "staff", "student"]}><PlacementPage /></ProtectedRoute>} />
+            <Route path="/complaints" element={<ProtectedRoute roles={["admin", "student"]}><ComplaintsPage /></ProtectedRoute>} />
             <Route path="/fees" element={<ProtectedRoute><FeesPage /></ProtectedRoute>} />
             <Route path="/security" element={<ProtectedRoute roles={["admin", "staff"]}><SecurityPage /></ProtectedRoute>} />
             <Route path="/blocked-ips" element={<ProtectedRoute roles={["admin"]}><BlockedIpsPage /></ProtectedRoute>} />
