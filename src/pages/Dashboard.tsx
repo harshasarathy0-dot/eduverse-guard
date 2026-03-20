@@ -82,7 +82,7 @@ function AdminDashboard() {
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <h3 className="font-semibold text-sm mb-4">Department Enrollment</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={departmentEnrollmentData}>
