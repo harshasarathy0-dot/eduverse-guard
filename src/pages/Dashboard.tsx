@@ -268,7 +268,7 @@ function StudentDashboard() {
         <h1 className="text-2xl font-bold tracking-tight">Student Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">Your courses, attendance, and assignments.</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 stagger-children">
         <StatCard title="Enrolled Courses" value={2} icon={<BookOpen className="h-4 w-4" />} />
         <StatCard title="Attendance Rate" value={total > 0 ? `${Math.round((present / total) * 100)}%` : "N/A"} icon={<Users className="h-4 w-4" />} />
         <StatCard title="Open Assignments" value={mockAssignments.filter(a => a.status === "open").length} icon={<FileText className="h-4 w-4" />} />
