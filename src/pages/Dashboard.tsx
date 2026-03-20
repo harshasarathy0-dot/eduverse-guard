@@ -43,7 +43,7 @@ function AdminDashboard() {
         <StatCard title="Open Assignments" value={mockAssignments.filter(a => a.status === "open").length} icon={<FileText className="h-4 w-4" />} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2 bg-card border border-border rounded-lg p-5">
+        <div className="lg:col-span-2 bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center gap-2 mb-4">
             <Activity className="h-4 w-4 text-muted-foreground" />
             <h3 className="font-semibold text-sm">Login Activity (This Week)</h3>
