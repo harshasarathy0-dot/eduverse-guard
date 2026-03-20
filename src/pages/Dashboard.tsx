@@ -36,7 +36,7 @@ function AdminDashboard() {
         <StatCard title="Active Courses" value={mockCourses.length} icon={<BookOpen className="h-4 w-4" />} trend={{ value: "+3", positive: true }} description="new this semester" />
         <StatCard title="Security Alerts" value={unresolvedAlerts.length} icon={<ShieldAlert className="h-4 w-4" />} trend={{ value: `${unresolvedAlerts.filter(a => a.severity === "high").length} critical`, positive: false }} className={unresolvedAlerts.some(a => a.severity === "high") ? "border-destructive/30" : ""} />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 stagger-children">
         <StatCard title="Blocked IPs" value={blockedCount} icon={<Globe className="h-4 w-4" />} className="border-destructive/20" description="actively blocked" />
         <StatCard title="Active Sessions" value={activeSessions} icon={<Monitor className="h-4 w-4" />} description="user sessions" />
         <StatCard title="Fees Pending" value={`₹${totalFeesPending.toLocaleString()}`} icon={<DollarSign className="h-4 w-4" />} className="border-warning/20" />
