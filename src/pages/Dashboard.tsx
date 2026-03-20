@@ -306,7 +306,7 @@ function StudentDashboard() {
           </div>
         </div>
       </div>
-      <div className="bg-card border border-border rounded-lg p-4 flex items-center gap-3">
+      <div className="bg-card border border-border rounded-xl p-4 flex items-center gap-3 shadow-card hover:shadow-card-hover transition-all duration-200">
         <Lock className="h-5 w-5 text-secondary" />
         <div className="flex-1">
           <div className="text-sm font-medium">Account Security</div>
