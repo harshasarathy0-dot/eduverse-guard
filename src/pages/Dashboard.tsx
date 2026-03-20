@@ -170,7 +170,7 @@ function StaffDashboard() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 stagger-children">
         <StatCard title="My Students" value={myStudents.length} icon={<GraduationCap className="h-4 w-4" />} description="Computer Science" />
         <StatCard title="My Subjects" value={mySubjects.length} icon={<BookOpen className="h-4 w-4" />} description={mySubjects.map(s => s.code).join(", ")} />
         <StatCard title="Today's Attendance" value={todayAttendance.length} icon={<UserCheck className="h-4 w-4" />} description="records marked today" />
