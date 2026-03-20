@@ -30,20 +30,20 @@ function AdminDashboard() {
         <h1 className="text-2xl font-bold tracking-tight">Admin Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">Complete system overview with security monitoring.</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
         <StatCard title="Total Students" value={mockStudents.length} icon={<GraduationCap className="h-4 w-4" />} trend={{ value: "+12%", positive: true }} description="from last semester" />
         <StatCard title="Faculty Members" value={mockFaculty.length} icon={<Users className="h-4 w-4" />} description="across 5 departments" />
         <StatCard title="Active Courses" value={mockCourses.length} icon={<BookOpen className="h-4 w-4" />} trend={{ value: "+3", positive: true }} description="new this semester" />
         <StatCard title="Security Alerts" value={unresolvedAlerts.length} icon={<ShieldAlert className="h-4 w-4" />} trend={{ value: `${unresolvedAlerts.filter(a => a.severity === "high").length} critical`, positive: false }} className={unresolvedAlerts.some(a => a.severity === "high") ? "border-destructive/30" : ""} />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 stagger-children">
         <StatCard title="Blocked IPs" value={blockedCount} icon={<Globe className="h-4 w-4" />} className="border-destructive/20" description="actively blocked" />
         <StatCard title="Active Sessions" value={activeSessions} icon={<Monitor className="h-4 w-4" />} description="user sessions" />
         <StatCard title="Fees Pending" value={`₹${totalFeesPending.toLocaleString()}`} icon={<DollarSign className="h-4 w-4" />} className="border-warning/20" />
         <StatCard title="Open Assignments" value={mockAssignments.filter(a => a.status === "open").length} icon={<FileText className="h-4 w-4" />} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2 bg-card border border-border rounded-lg p-5">
+        <div className="lg:col-span-2 bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center gap-2 mb-4">
             <Activity className="h-4 w-4 text-muted-foreground" />
             <h3 className="font-semibold text-sm">Login Activity (This Week)</h3>
@@ -59,7 +59,7 @@ function AdminDashboard() {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center gap-2 mb-4">
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
             <h3 className="font-semibold text-sm">Risk Distribution</h3>
@@ -82,7 +82,7 @@ function AdminDashboard() {
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <h3 className="font-semibold text-sm mb-4">Department Enrollment</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={departmentEnrollmentData}>
@@ -94,7 +94,7 @@ function AdminDashboard() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-sm">Recent Activity</h3>
             <Link to="/activity-logs" className="text-xs text-secondary hover:underline">View all</Link>
@@ -170,7 +170,7 @@ function StaffDashboard() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 stagger-children">
         <StatCard title="My Students" value={myStudents.length} icon={<GraduationCap className="h-4 w-4" />} description="Computer Science" />
         <StatCard title="My Subjects" value={mySubjects.length} icon={<BookOpen className="h-4 w-4" />} description={mySubjects.map(s => s.code).join(", ")} />
         <StatCard title="Today's Attendance" value={todayAttendance.length} icon={<UserCheck className="h-4 w-4" />} description="records marked today" />
@@ -180,26 +180,26 @@ function StaffDashboard() {
 
       {/* Quick Links */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <Link to="/attendance" className="bg-card border border-border rounded-lg p-4 hover:border-secondary/40 transition-colors flex items-center gap-3">
+        <Link to="/attendance" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
           <div className="h-10 w-10 rounded-md bg-success/10 flex items-center justify-center"><UserCheck className="h-5 w-5 text-success" /></div>
           <div><div className="text-sm font-semibold">Mark Attendance</div><div className="text-xs text-muted-foreground">Daily class attendance</div></div>
         </Link>
-        <Link to="/assignments" className="bg-card border border-border rounded-lg p-4 hover:border-secondary/40 transition-colors flex items-center gap-3">
+        <Link to="/assignments" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
           <div className="h-10 w-10 rounded-md bg-secondary/10 flex items-center justify-center"><ClipboardList className="h-5 w-5 text-secondary" /></div>
           <div><div className="text-sm font-semibold">Assignments</div><div className="text-xs text-muted-foreground">Create & track submissions</div></div>
         </Link>
-        <Link to="/exam-results" className="bg-card border border-border rounded-lg p-4 hover:border-secondary/40 transition-colors flex items-center gap-3">
+        <Link to="/exam-results" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
           <div className="h-10 w-10 rounded-md bg-warning/10 flex items-center justify-center"><TrendingUp className="h-5 w-5 text-warning" /></div>
           <div><div className="text-sm font-semibold">Enter Marks</div><div className="text-xs text-muted-foreground">Exam & assignment marks</div></div>
         </Link>
-        <Link to="/fees" className="bg-card border border-border rounded-lg p-4 hover:border-secondary/40 transition-colors flex items-center gap-3">
+        <Link to="/fees" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
           <div className="h-10 w-10 rounded-md bg-muted flex items-center justify-center"><DollarSign className="h-5 w-5 text-muted-foreground" /></div>
           <div><div className="text-sm font-semibold">Fee Status</div><div className="text-xs text-muted-foreground">Read-only view</div></div>
         </Link>
       </div>
 
       {/* Recent Assignments */}
-      <div className="bg-card border border-border rounded-lg p-5">
+      <div className="bg-card border border-border rounded-xl p-5 shadow-card">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-sm">Recent Assignments</h3>
           <Link to="/assignments" className="text-xs text-secondary hover:underline">View all</Link>
@@ -224,7 +224,7 @@ function StaffDashboard() {
       </div>
 
       {/* Student Fee Overview (read-only) */}
-      <div className="bg-card border border-border rounded-lg p-5">
+      <div className="bg-card border border-border rounded-xl p-5 shadow-card">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-sm flex items-center gap-2">
             <DollarSign className="h-4 w-4 text-muted-foreground" /> Student Fee Status
@@ -268,7 +268,7 @@ function StudentDashboard() {
         <h1 className="text-2xl font-bold tracking-tight">Student Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">Your courses, attendance, and assignments.</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 stagger-children">
         <StatCard title="Enrolled Courses" value={2} icon={<BookOpen className="h-4 w-4" />} />
         <StatCard title="Attendance Rate" value={total > 0 ? `${Math.round((present / total) * 100)}%` : "N/A"} icon={<Users className="h-4 w-4" />} />
         <StatCard title="Open Assignments" value={mockAssignments.filter(a => a.status === "open").length} icon={<FileText className="h-4 w-4" />} />
@@ -276,7 +276,7 @@ function StudentDashboard() {
         <StatCard title="Pending Fees" value={pendingFees.length} icon={<DollarSign className="h-4 w-4" />} className={pendingFees.length > 0 ? "border-warning/30" : ""} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-card border border-border rounded-lg p-5">
+          <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <h3 className="font-semibold text-sm mb-4">Upcoming Assignments</h3>
           <div className="space-y-3">
             {mockAssignments.filter(a => a.status === "open").map(a => (
@@ -287,7 +287,7 @@ function StudentDashboard() {
             ))}
           </div>
         </div>
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-sm">Fee Status</h3>
             <Link to="/fees" className="text-xs text-secondary hover:underline">View all</Link>
@@ -306,7 +306,7 @@ function StudentDashboard() {
           </div>
         </div>
       </div>
-      <div className="bg-card border border-border rounded-lg p-4 flex items-center gap-3">
+      <div className="bg-card border border-border rounded-xl p-4 flex items-center gap-3 shadow-card hover:shadow-card-hover transition-all duration-200">
         <Lock className="h-5 w-5 text-secondary" />
         <div className="flex-1">
           <div className="text-sm font-medium">Account Security</div>
@@ -349,14 +349,14 @@ function ParentDashboard() {
           ))}
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
         <StatCard title="Child" value="James Wilson" icon={<GraduationCap className="h-4 w-4" />} description="Computer Science, Sem 5" />
         <StatCard title="Attendance" value={`${attendanceRate}%`} icon={<Users className="h-4 w-4" />} className={attendanceRate < 80 ? "border-warning/30" : ""} description={`${present}/${total} present`} />
         <StatCard title="Current GPA" value="3.70" icon={<BookOpen className="h-4 w-4" />} />
         <StatCard title="Fees Due" value={`₹${totalDue.toLocaleString()}`} icon={<DollarSign className="h-4 w-4" />} className={totalDue > 0 ? "border-destructive/30" : ""} description={`${pendingFees.length} pending`} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-card border border-border rounded-lg p-5">
+          <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-sm">Recent Attendance</h3>
             <Link to="/attendance" className="text-xs text-secondary hover:underline">View all</Link>
@@ -374,7 +374,7 @@ function ParentDashboard() {
             ))}
           </div>
         </div>
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-sm">Fee Status</h3>
             <Link to="/fees" className="text-xs text-secondary hover:underline">View all</Link>

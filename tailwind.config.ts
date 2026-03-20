@@ -76,6 +76,11 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        "card": "0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04)",
+        "card-hover": "0 8px 24px -4px hsl(0 0% 0% / 0.08), 0 2px 6px -2px hsl(0% 0% 0% / 0.04)",
+        "glow": "0 0 20px -4px hsl(var(--secondary) / 0.3)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
