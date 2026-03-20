@@ -188,7 +188,7 @@ function StaffDashboard() {
           <div className="h-10 w-10 rounded-md bg-secondary/10 flex items-center justify-center"><ClipboardList className="h-5 w-5 text-secondary" /></div>
           <div><div className="text-sm font-semibold">Assignments</div><div className="text-xs text-muted-foreground">Create & track submissions</div></div>
         </Link>
-        <Link to="/exam-results" className="bg-card border border-border rounded-lg p-4 hover:border-secondary/40 transition-colors flex items-center gap-3">
+        <Link to="/exam-results" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
           <div className="h-10 w-10 rounded-md bg-warning/10 flex items-center justify-center"><TrendingUp className="h-5 w-5 text-warning" /></div>
           <div><div className="text-sm font-semibold">Enter Marks</div><div className="text-xs text-muted-foreground">Exam & assignment marks</div></div>
         </Link>
