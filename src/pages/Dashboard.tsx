@@ -199,7 +199,7 @@ function StaffDashboard() {
       </div>
 
       {/* Recent Assignments */}
-      <div className="bg-card border border-border rounded-lg p-5">
+      <div className="bg-card border border-border rounded-xl p-5 shadow-card">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-sm">Recent Assignments</h3>
           <Link to="/assignments" className="text-xs text-secondary hover:underline">View all</Link>
