@@ -356,7 +356,7 @@ function ParentDashboard() {
         <StatCard title="Fees Due" value={`₹${totalDue.toLocaleString()}`} icon={<DollarSign className="h-4 w-4" />} className={totalDue > 0 ? "border-destructive/30" : ""} description={`${pendingFees.length} pending`} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-card border border-border rounded-lg p-5">
+          <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-sm">Recent Attendance</h3>
             <Link to="/attendance" className="text-xs text-secondary hover:underline">View all</Link>
