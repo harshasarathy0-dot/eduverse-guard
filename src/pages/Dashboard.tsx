@@ -59,7 +59,7 @@ function AdminDashboard() {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <div className="flex items-center gap-2 mb-4">
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
             <h3 className="font-semibold text-sm">Risk Distribution</h3>
