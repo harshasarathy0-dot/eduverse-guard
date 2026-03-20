@@ -11,11 +11,11 @@ export default function SecurityHeader() {
   const showSecurity = user?.role === "admin" || user?.role === "staff";
 
   return (
-    <header className="h-14 border-b border-border bg-card flex items-center justify-between px-6 shrink-0">
+    <header className="h-14 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-between px-6 shrink-0">
       <div className="flex items-center gap-3">
         {showSecurity && (
           <div
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold ${
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
               hasHighRisk
                 ? "bg-destructive/10 text-destructive animate-pulse-alert"
                 : "bg-success/10 text-success"
@@ -34,25 +34,25 @@ export default function SecurityHeader() {
         {showSecurity && (
           <Link
             to="/security"
-            className="relative flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            className="relative flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
           >
             <Bell className="h-4 w-4" />
             <span>Alerts</span>
             {unresolvedAlerts.length > 0 && (
-              <span className="absolute -top-1.5 -right-3 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+              <span className="absolute -top-1.5 -right-3 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full h-4 min-w-4 px-1 flex items-center justify-center animate-pulse-alert">
                 {unresolvedAlerts.length}
               </span>
             )}
           </Link>
         )}
         {user && (
-          <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded-md bg-secondary flex items-center justify-center text-secondary-foreground text-xs font-bold">
+          <div className="flex items-center gap-2.5">
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-white text-xs font-bold shadow-sm">
               {user.avatar}
             </div>
             <div className="text-sm">
               <span className="font-medium">{user.name}</span>
-              <span className="text-muted-foreground ml-1 capitalize text-xs">({user.role})</span>
+              <span className="text-muted-foreground ml-1.5 capitalize text-xs">({user.role})</span>
             </div>
           </div>
         )}
