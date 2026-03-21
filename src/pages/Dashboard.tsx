@@ -118,6 +118,30 @@ function AdminDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Intelligence Quick Links */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <Link to="/trust-score" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-secondary/10 flex items-center justify-center"><ShieldCheck className="h-5 w-5 text-secondary" /></div>
+          <div><div className="text-sm font-semibold">Trust Scores</div><div className="text-xs text-muted-foreground">AI-computed</div></div>
+        </Link>
+        <Link to="/student-health" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-success/10 flex items-center justify-center"><Heart className="h-5 w-5 text-success" /></div>
+          <div><div className="text-sm font-semibold">Student Health</div><div className="text-xs text-muted-foreground">Combined status</div></div>
+        </Link>
+        <Link to="/smart-alerts" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-warning/10 flex items-center justify-center"><Bell className="h-5 w-5 text-warning" /></div>
+          <div><div className="text-sm font-semibold">Smart Alerts</div><div className="text-xs text-muted-foreground">{generateSmartAlerts().filter(a => !a.resolved).length} active</div></div>
+        </Link>
+        <Link to="/risk-timeline" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-destructive/10 flex items-center justify-center"><Zap className="h-5 w-5 text-destructive" /></div>
+          <div><div className="text-sm font-semibold">Risk Timeline</div><div className="text-xs text-muted-foreground">Security history</div></div>
+        </Link>
+        <Link to="/admin-control" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-muted flex items-center justify-center"><Settings className="h-5 w-5 text-muted-foreground" /></div>
+          <div><div className="text-sm font-semibold">Control Panel</div><div className="text-xs text-muted-foreground">System config</div></div>
+        </Link>
+      </div>
     </div>
   );
 }
