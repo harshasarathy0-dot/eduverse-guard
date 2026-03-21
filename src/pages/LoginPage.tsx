@@ -128,7 +128,7 @@ export default function LoginPage() {
                   type="button"
                   onClick={() => handleRoleSelect(r.value)}
                   className={cn(
-                    "relative border-2 rounded-xl p-3.5 text-left transition-all duration-200 active:scale-[0.97] group",
+                    "relative border-2 rounded-xl p-4 text-left transition-all duration-200 active:scale-[0.97] group",
                     active
                       ? "border-secondary bg-secondary/5 shadow-glow"
                       : "border-border hover:border-muted-foreground/30 hover:shadow-card"
