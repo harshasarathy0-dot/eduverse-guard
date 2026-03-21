@@ -12,6 +12,7 @@ import {
   loginActivityData, riskDistributionData, departmentEnrollmentData,
 } from "@/lib/mockData";
 import { mockFeePayments } from "@/lib/mockFees";
+import { calculateTrustScore, getStudentHealth, generateSmartAlerts } from "@/lib/trustScore";
 import { mockUserSessions, mockActivityLogs } from "@/lib/mockActivity";
 import AppLayout from "@/components/AppLayout";
 import { useAuth } from "@/lib/authContext";
