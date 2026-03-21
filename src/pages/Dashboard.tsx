@@ -94,7 +94,7 @@ function AdminDashboard() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="bg-card border border-border rounded-xl p-5 shadow-card">
+        <div className="bg-card border border-border rounded-xl p-6 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-sm">Recent Activity</h3>
             <Link to="/activity-logs" className="text-xs text-secondary hover:underline">View all</Link>
