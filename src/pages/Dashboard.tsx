@@ -1,5 +1,5 @@
 import {
-  Users, GraduationCap, BookOpen, ShieldAlert, Activity, AlertTriangle, Globe, Calendar, FileText, DollarSign, Lock, Monitor, UserCheck, ClipboardList, TrendingUp,
+  Users, GraduationCap, BookOpen, ShieldAlert, Activity, AlertTriangle, Globe, Calendar, FileText, DollarSign, Lock, Monitor, UserCheck, ClipboardList, TrendingUp, ShieldCheck, Heart, Bell, Zap, Settings,
 } from "lucide-react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area,
