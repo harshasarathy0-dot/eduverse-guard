@@ -331,6 +331,34 @@ function StudentDashboard() {
           </div>
         </div>
       </div>
+      {/* Trust Score */}
+      {(() => {
+        const trust = calculateTrustScore("s1");
+        const statusColor = trust.status === "Excellent" ? "text-success bg-success/10" : trust.status === "Good" ? "text-warning bg-warning/10" : "text-destructive bg-destructive/10";
+        return (
+          <div className="bg-card border border-border rounded-xl p-5 shadow-card">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-secondary" />
+                <h3 className="font-semibold text-sm">Digital Trust Score</h3>
+              </div>
+              <Link to="/trust-score" className="text-xs text-secondary hover:underline">Details →</Link>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className={cn("text-3xl font-bold", trust.score >= 80 ? "text-success" : trust.score >= 60 ? "text-warning" : "text-destructive")}>{trust.score}</div>
+              <span className={cn("text-xs font-semibold px-2 py-0.5 rounded", statusColor)}>{trust.status}</span>
+            </div>
+            {trust.recommendations.length > 0 && (
+              <div className="mt-3 space-y-1">
+                {trust.recommendations.slice(0, 2).map((r, i) => (
+                  <div key={i} className="text-xs bg-muted/50 rounded-lg px-3 py-1.5">{r}</div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })()}
+
       <div className="bg-card border border-border rounded-xl p-5 flex items-center gap-4 shadow-card hover:shadow-card-hover transition-all duration-200">
         <Lock className="h-5 w-5 text-secondary" />
         <div className="flex-1">
