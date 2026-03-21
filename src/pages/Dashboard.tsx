@@ -275,7 +275,7 @@ function StudentDashboard() {
         <StatCard title="Current GPA" value="3.70" icon={<GraduationCap className="h-4 w-4" />} />
         <StatCard title="Pending Fees" value={pendingFees.length} icon={<DollarSign className="h-4 w-4" />} className={pendingFees.length > 0 ? "border-warning/30" : ""} />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <div className="bg-card border border-border rounded-xl p-5 shadow-card">
           <h3 className="font-semibold text-sm mb-4">Upcoming Assignments</h3>
           <div className="space-y-3">
