@@ -11,7 +11,7 @@ export default function SecurityHeader() {
   const showSecurity = user?.role === "admin" || user?.role === "staff";
 
   return (
-    <header className="h-14 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-between px-6 shrink-0">
+    <header className="h-16 border-b border-border bg-card/80 backdrop-blur-md flex items-center justify-between px-8 shrink-0">
       <div className="flex items-center gap-3">
         {showSecurity && (
           <div

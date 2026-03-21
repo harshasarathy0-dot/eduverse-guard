@@ -73,7 +73,7 @@ export default function AppSidebar() {
       )}>
         {user && (
           <div className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-white text-xs font-bold shrink-0">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-sm">
               {user.avatar}
             </div>
             <div className="min-w-0">
