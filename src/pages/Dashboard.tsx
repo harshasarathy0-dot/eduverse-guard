@@ -332,7 +332,7 @@ function ParentDashboard() {
   if (pendingFees.some(f => f.status === "overdue")) alerts.push({ type: "Fee Due", message: `Overdue fees: ₹${totalDue.toLocaleString()} pending`, severity: "destructive" });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Parent Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">Monitor your child's academic progress.</p>
