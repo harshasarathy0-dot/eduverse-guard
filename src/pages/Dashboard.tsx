@@ -30,7 +30,7 @@ function AdminDashboard() {
         <h1 className="text-2xl font-bold tracking-tight">Admin Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">Complete system overview with security monitoring.</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger-children">
         <StatCard title="Total Students" value={mockStudents.length} icon={<GraduationCap className="h-4 w-4" />} trend={{ value: "+12%", positive: true }} description="from last semester" />
         <StatCard title="Faculty Members" value={mockFaculty.length} icon={<Users className="h-4 w-4" />} description="across 5 departments" />
         <StatCard title="Active Courses" value={mockCourses.length} icon={<BookOpen className="h-4 w-4" />} trend={{ value: "+3", positive: true }} description="new this semester" />
