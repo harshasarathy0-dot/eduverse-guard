@@ -1,5 +1,5 @@
 import {
-  Users, GraduationCap, BookOpen, ShieldAlert, Activity, AlertTriangle, Globe, Calendar, FileText, DollarSign, Lock, Monitor, UserCheck, ClipboardList, TrendingUp,
+  Users, GraduationCap, BookOpen, ShieldAlert, Activity, AlertTriangle, Globe, Calendar, FileText, DollarSign, Lock, Monitor, UserCheck, ClipboardList, TrendingUp, ShieldCheck, Heart, Bell, Zap, Settings,
 } from "lucide-react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area,
@@ -12,6 +12,7 @@ import {
   loginActivityData, riskDistributionData, departmentEnrollmentData,
 } from "@/lib/mockData";
 import { mockFeePayments } from "@/lib/mockFees";
+import { calculateTrustScore, getStudentHealth, generateSmartAlerts } from "@/lib/trustScore";
 import { mockUserSessions, mockActivityLogs } from "@/lib/mockActivity";
 import AppLayout from "@/components/AppLayout";
 import { useAuth } from "@/lib/authContext";
@@ -116,6 +117,30 @@ function AdminDashboard() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Intelligence Quick Links */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <Link to="/trust-score" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-secondary/10 flex items-center justify-center"><ShieldCheck className="h-5 w-5 text-secondary" /></div>
+          <div><div className="text-sm font-semibold">Trust Scores</div><div className="text-xs text-muted-foreground">AI-computed</div></div>
+        </Link>
+        <Link to="/student-health" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-success/10 flex items-center justify-center"><Heart className="h-5 w-5 text-success" /></div>
+          <div><div className="text-sm font-semibold">Student Health</div><div className="text-xs text-muted-foreground">Combined status</div></div>
+        </Link>
+        <Link to="/smart-alerts" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-warning/10 flex items-center justify-center"><Bell className="h-5 w-5 text-warning" /></div>
+          <div><div className="text-sm font-semibold">Smart Alerts</div><div className="text-xs text-muted-foreground">{generateSmartAlerts().filter(a => !a.resolved).length} active</div></div>
+        </Link>
+        <Link to="/risk-timeline" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-destructive/10 flex items-center justify-center"><Zap className="h-5 w-5 text-destructive" /></div>
+          <div><div className="text-sm font-semibold">Risk Timeline</div><div className="text-xs text-muted-foreground">Security history</div></div>
+        </Link>
+        <Link to="/admin-control" className="bg-card border border-border rounded-xl p-4 hover:border-secondary/40 hover:shadow-card-hover transition-all duration-200 flex items-center gap-3">
+          <div className="h-10 w-10 rounded-md bg-muted flex items-center justify-center"><Settings className="h-5 w-5 text-muted-foreground" /></div>
+          <div><div className="text-sm font-semibold">Control Panel</div><div className="text-xs text-muted-foreground">System config</div></div>
+        </Link>
       </div>
     </div>
   );
@@ -306,6 +331,34 @@ function StudentDashboard() {
           </div>
         </div>
       </div>
+      {/* Trust Score */}
+      {(() => {
+        const trust = calculateTrustScore("s1");
+        const statusColor = trust.status === "Excellent" ? "text-success bg-success/10" : trust.status === "Good" ? "text-warning bg-warning/10" : "text-destructive bg-destructive/10";
+        return (
+          <div className="bg-card border border-border rounded-xl p-5 shadow-card">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-secondary" />
+                <h3 className="font-semibold text-sm">Digital Trust Score</h3>
+              </div>
+              <Link to="/trust-score" className="text-xs text-secondary hover:underline">Details →</Link>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className={cn("text-3xl font-bold", trust.score >= 80 ? "text-success" : trust.score >= 60 ? "text-warning" : "text-destructive")}>{trust.score}</div>
+              <span className={cn("text-xs font-semibold px-2 py-0.5 rounded", statusColor)}>{trust.status}</span>
+            </div>
+            {trust.recommendations.length > 0 && (
+              <div className="mt-3 space-y-1">
+                {trust.recommendations.slice(0, 2).map((r, i) => (
+                  <div key={i} className="text-xs bg-muted/50 rounded-lg px-3 py-1.5">{r}</div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })()}
+
       <div className="bg-card border border-border rounded-xl p-5 flex items-center gap-4 shadow-card hover:shadow-card-hover transition-all duration-200">
         <Lock className="h-5 w-5 text-secondary" />
         <div className="flex-1">
