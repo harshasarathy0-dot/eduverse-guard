@@ -5,6 +5,7 @@ import {
   ChevronLeft, ChevronRight, LogOut, UserCheck, Calendar,
   FileText, Globe, BookMarked, DollarSign, Activity, Monitor, Lock,
   Clock, Award, TrendingUp, Briefcase, MessageSquareWarning,
+  ShieldCheck, Heart, Bell, FileWarning, BarChart3, Settings, Zap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth, type UserRole } from "@/lib/authContext";
@@ -29,13 +30,20 @@ const navItems: NavItem[] = [
   { label: "Assignments", icon: FileText, path: "/assignments", roles: ["admin", "staff", "student"], section: "Academic" },
   { label: "Exam Results", icon: Award, path: "/exam-results", roles: ["admin", "staff", "student", "parent"], section: "Academic" },
   { label: "Performance", icon: TrendingUp, path: "/performance", roles: ["admin", "staff", "student", "parent"], section: "Academic" },
+  { label: "Trust Score", icon: ShieldCheck, path: "/trust-score", roles: ["admin", "student"], section: "Intelligence" },
+  { label: "Student Health", icon: Heart, path: "/student-health", roles: ["admin", "staff", "student"], section: "Intelligence" },
+  { label: "Smart Alerts", icon: Bell, path: "/smart-alerts", roles: ["admin"], section: "Intelligence" },
+  { label: "Incident Reports", icon: FileWarning, path: "/incident-reports", roles: ["admin"], section: "Intelligence" },
+  { label: "Complaint Analytics", icon: BarChart3, path: "/complaint-analytics", roles: ["admin"], section: "Intelligence" },
   { label: "Placement", icon: Briefcase, path: "/placement", roles: ["admin", "staff", "student"], section: "Career" },
   { label: "Complaints", icon: MessageSquareWarning, path: "/complaints", roles: ["admin", "student"], section: "Career" },
   { label: "Fees", icon: DollarSign, path: "/fees", roles: ["admin", "staff", "student", "parent"], section: "Finance" },
   { label: "AuthGuard", icon: Shield, path: "/security", roles: ["admin", "staff"], section: "Security" },
+  { label: "Risk Timeline", icon: Zap, path: "/risk-timeline", roles: ["admin"], section: "Security" },
   { label: "Blocked IPs", icon: Globe, path: "/blocked-ips", roles: ["admin"], section: "Security" },
   { label: "Activity Logs", icon: Activity, path: "/activity-logs", roles: ["admin"], section: "Security" },
   { label: "Sessions Mgmt", icon: Monitor, path: "/session-management", roles: ["admin"], section: "Security" },
+  { label: "Admin Control", icon: Settings, path: "/admin-control", roles: ["admin"], section: "Security" },
   { label: "My Security", icon: Lock, path: "/my-security", roles: ["student"], section: "Security" },
 ];
 

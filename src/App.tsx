@@ -23,6 +23,13 @@ import ExamResultsPage from "./pages/ExamResultsPage";
 import PlacementPage from "./pages/PlacementPage";
 import ComplaintsPage from "./pages/ComplaintsPage";
 import PerformancePage from "./pages/PerformancePage";
+import TrustScorePage from "./pages/TrustScorePage";
+import RiskTimelinePage from "./pages/RiskTimelinePage";
+import SmartAlertsPage from "./pages/SmartAlertsPage";
+import StudentHealthPage from "./pages/StudentHealthPage";
+import IncidentReportsPage from "./pages/IncidentReportsPage";
+import ComplaintAnalyticsPage from "./pages/ComplaintAnalyticsPage";
+import AdminControlPage from "./pages/AdminControlPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFound";
 import { ReactNode } from "react";
@@ -66,6 +73,13 @@ const App = () => (
             <Route path="/placement" element={<ProtectedRoute roles={["admin", "staff", "student"]}><PlacementPage /></ProtectedRoute>} />
             <Route path="/complaints" element={<ProtectedRoute roles={["admin", "student"]}><ComplaintsPage /></ProtectedRoute>} />
             <Route path="/fees" element={<ProtectedRoute><FeesPage /></ProtectedRoute>} />
+            <Route path="/trust-score" element={<ProtectedRoute roles={["admin", "student"]}><TrustScorePage /></ProtectedRoute>} />
+            <Route path="/student-health" element={<ProtectedRoute roles={["admin", "staff", "student"]}><StudentHealthPage /></ProtectedRoute>} />
+            <Route path="/smart-alerts" element={<ProtectedRoute roles={["admin"]}><SmartAlertsPage /></ProtectedRoute>} />
+            <Route path="/risk-timeline" element={<ProtectedRoute roles={["admin"]}><RiskTimelinePage /></ProtectedRoute>} />
+            <Route path="/incident-reports" element={<ProtectedRoute roles={["admin"]}><IncidentReportsPage /></ProtectedRoute>} />
+            <Route path="/complaint-analytics" element={<ProtectedRoute roles={["admin"]}><ComplaintAnalyticsPage /></ProtectedRoute>} />
+            <Route path="/admin-control" element={<ProtectedRoute roles={["admin"]}><AdminControlPage /></ProtectedRoute>} />
             <Route path="/security" element={<ProtectedRoute roles={["admin", "staff"]}><SecurityPage /></ProtectedRoute>} />
             <Route path="/blocked-ips" element={<ProtectedRoute roles={["admin"]}><BlockedIpsPage /></ProtectedRoute>} />
             <Route path="/activity-logs" element={<ProtectedRoute roles={["admin"]}><ActivityLogsPage /></ProtectedRoute>} />
