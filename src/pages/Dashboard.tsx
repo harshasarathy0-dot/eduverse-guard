@@ -349,7 +349,7 @@ function ParentDashboard() {
           ))}
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger-children">
         <StatCard title="Child" value="James Wilson" icon={<GraduationCap className="h-4 w-4" />} description="Computer Science, Sem 5" />
         <StatCard title="Attendance" value={`${attendanceRate}%`} icon={<Users className="h-4 w-4" />} className={attendanceRate < 80 ? "border-warning/30" : ""} description={`${present}/${total} present`} />
         <StatCard title="Current GPA" value="3.70" icon={<BookOpen className="h-4 w-4" />} />
