@@ -149,7 +149,7 @@ function StaffDashboard() {
   if (overdueFees.length > 0) alerts.push({ type: "Fee Overdue", message: `${overdueFees.length} overdue fee(s) among your students`, severity: "destructive" });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Staff Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">Your teaching overview, attendance, and assignments.</p>
