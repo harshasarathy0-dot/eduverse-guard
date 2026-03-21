@@ -119,7 +119,7 @@ export default function LoginPage() {
           </p>
 
           {/* Role Selector */}
-          <div className="grid grid-cols-2 gap-2.5 mb-8">
+          <div className="grid grid-cols-2 gap-3 mb-8">
             {roleOptions.map((r) => {
               const active = selectedRole === r.value;
               return (
