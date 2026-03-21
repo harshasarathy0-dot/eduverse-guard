@@ -263,7 +263,7 @@ function StudentDashboard() {
   const pendingFees = myFees.filter(p => p.status !== "paid");
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Student Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">Your courses, attendance, and assignments.</p>
