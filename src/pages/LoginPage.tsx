@@ -159,7 +159,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setError(""); }}
                 disabled={loading}
-                className="mt-1.5 h-11 rounded-lg transition-shadow duration-200 focus-visible:shadow-glow"
+                className="mt-1.5 h-12 rounded-xl transition-shadow duration-200 focus-visible:shadow-glow"
                 required
               />
             </div>
