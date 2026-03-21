@@ -76,8 +76,8 @@ export default function LoginPage() {
         <div className="absolute inset-0 grid-pattern opacity-40" />
         <div className="relative z-10 max-w-md text-primary-foreground animate-fade-up">
           <div className="flex items-center gap-3 mb-10">
-            <div className="h-12 w-12 rounded-xl bg-secondary/20 backdrop-blur-sm flex items-center justify-center border border-secondary/20">
-              <Shield className="h-6 w-6 text-secondary" />
+            <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center border border-white/10 shadow-lg shadow-primary/30">
+              <Shield className="h-7 w-7 text-white" />
             </div>
             <span className="text-3xl font-bold tracking-tight">EDUVERSE</span>
           </div>
@@ -119,7 +119,7 @@ export default function LoginPage() {
           </p>
 
           {/* Role Selector */}
-          <div className="grid grid-cols-2 gap-2.5 mb-8">
+          <div className="grid grid-cols-2 gap-3 mb-8">
             {roleOptions.map((r) => {
               const active = selectedRole === r.value;
               return (
@@ -128,9 +128,9 @@ export default function LoginPage() {
                   type="button"
                   onClick={() => handleRoleSelect(r.value)}
                   className={cn(
-                    "relative border-2 rounded-xl p-3.5 text-left transition-all duration-200 active:scale-[0.97] group",
+                    "relative border-2 rounded-xl p-4 text-left transition-all duration-200 active:scale-[0.97] group",
                     active
-                      ? "border-secondary bg-secondary/5 shadow-glow"
+                      ? "border-primary bg-primary/5 shadow-glow"
                       : "border-border hover:border-muted-foreground/30 hover:shadow-card"
                   )}
                 >
@@ -149,7 +149,7 @@ export default function LoginPage() {
             })}
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Email</Label>
               <Input
@@ -159,7 +159,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setError(""); }}
                 disabled={loading}
-                className="mt-1.5 h-11 rounded-lg transition-shadow duration-200 focus-visible:shadow-glow"
+                className="mt-1.5 h-12 rounded-xl transition-shadow duration-200 focus-visible:shadow-glow"
                 required
               />
             </div>
@@ -173,7 +173,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); setError(""); }}
                   disabled={loading}
-                  className="h-11 rounded-lg transition-shadow duration-200 focus-visible:shadow-glow pr-10"
+                  className="h-12 rounded-xl transition-shadow duration-200 focus-visible:shadow-glow pr-10"
                   required
                 />
                 <button
@@ -194,7 +194,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              className="w-full h-11 rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold transition-all duration-200 active:scale-[0.97] shadow-sm hover:shadow-glow"
+              className="w-full h-12 rounded-xl bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-semibold transition-all duration-200 active:scale-[0.97] shadow-md hover:shadow-lg"
               disabled={loading}
             >
               {loading ? (

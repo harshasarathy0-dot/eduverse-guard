@@ -8,8 +8,8 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <AppSidebar />
       <div className="flex-1 flex flex-col min-w-0">
         <SecurityHeader />
-        <main className="flex-1 overflow-auto p-6">
-          <div className="animate-fade-up">
+        <main className="flex-1 overflow-auto p-8">
+          <div className="animate-fade-up max-w-[1400px] mx-auto">
             {children}
           </div>
         </main>

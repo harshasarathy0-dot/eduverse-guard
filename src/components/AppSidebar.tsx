@@ -56,12 +56,12 @@ export default function AppSidebar() {
       )}
     >
       {/* Logo */}
-      <div className="flex items-center gap-2.5 px-4 h-14 border-b border-sidebar-border">
-        <div className="h-8 w-8 rounded-lg bg-secondary/20 flex items-center justify-center shrink-0">
-          <Shield className="h-4 w-4 text-secondary" />
+      <div className="flex items-center gap-3 px-4 h-16 border-b border-sidebar-border">
+        <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0 shadow-lg shadow-primary/20">
+          <Shield className="h-4.5 w-4.5 text-white" />
         </div>
         <span className={cn(
-          "font-bold text-base tracking-tight text-sidebar-foreground transition-opacity duration-200",
+          "font-bold text-lg tracking-tight text-sidebar-foreground transition-opacity duration-200",
           collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
         )}>EDUVERSE</span>
       </div>
@@ -73,7 +73,7 @@ export default function AppSidebar() {
       )}>
         {user && (
           <div className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-white text-xs font-bold shrink-0">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-sm">
               {user.avatar}
             </div>
             <div className="min-w-0">
