@@ -173,7 +173,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); setError(""); }}
                   disabled={loading}
-                  className="h-11 rounded-lg transition-shadow duration-200 focus-visible:shadow-glow pr-10"
+                  className="h-12 rounded-xl transition-shadow duration-200 focus-visible:shadow-glow pr-10"
                   required
                 />
                 <button
