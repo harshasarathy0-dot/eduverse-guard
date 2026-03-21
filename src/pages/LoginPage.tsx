@@ -76,8 +76,8 @@ export default function LoginPage() {
         <div className="absolute inset-0 grid-pattern opacity-40" />
         <div className="relative z-10 max-w-md text-primary-foreground animate-fade-up">
           <div className="flex items-center gap-3 mb-10">
-            <div className="h-12 w-12 rounded-xl bg-secondary/20 backdrop-blur-sm flex items-center justify-center border border-secondary/20">
-              <Shield className="h-6 w-6 text-secondary" />
+            <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center border border-white/10 shadow-lg shadow-primary/30">
+              <Shield className="h-7 w-7 text-white" />
             </div>
             <span className="text-3xl font-bold tracking-tight">EDUVERSE</span>
           </div>
