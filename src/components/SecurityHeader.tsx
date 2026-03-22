@@ -1,10 +1,13 @@
-import { Shield, Bell } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Shield, Sun, Moon } from "lucide-react";
 import { mockAlerts } from "@/lib/mockData";
 import { useAuth } from "@/lib/authContext";
+import { useTheme } from "@/lib/themeContext";
+import GlobalSearch from "./GlobalSearch";
+import NotificationCenter from "./NotificationCenter";
 
 export default function SecurityHeader() {
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const unresolvedAlerts = mockAlerts.filter((a) => !a.resolved);
   const highAlerts = unresolvedAlerts.filter((a) => a.severity === "high");
   const hasHighRisk = highAlerts.length > 0;
@@ -31,20 +34,18 @@ export default function SecurityHeader() {
       </div>
 
       <div className="flex items-center gap-4">
-        {showSecurity && (
-          <Link
-            to="/security"
-            className="relative flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
-          >
-            <Bell className="h-4 w-4" />
-            <span>Alerts</span>
-            {unresolvedAlerts.length > 0 && (
-              <span className="absolute -top-1.5 -right-3 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full h-4 min-w-4 px-1 flex items-center justify-center animate-pulse-alert">
-                {unresolvedAlerts.length}
-              </span>
-            )}
-          </Link>
-        )}
+        <GlobalSearch />
+
+        <button
+          onClick={toggleTheme}
+          className="h-8 w-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+        >
+          {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+        </button>
+
+        <NotificationCenter />
+
         {user && (
           <div className="flex items-center gap-2.5">
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-white text-xs font-bold shadow-sm">
