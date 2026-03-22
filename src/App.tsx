@@ -53,45 +53,47 @@ function PublicRoute({ children }: { children: ReactNode }) {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/students" element={<ProtectedRoute roles={["admin", "staff"]}><StudentsPage /></ProtectedRoute>} />
-            <Route path="/staff" element={<ProtectedRoute roles={["admin"]}><FacultyPage /></ProtectedRoute>} />
-            <Route path="/courses" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><CoursesPage /></ProtectedRoute>} />
-            <Route path="/subjects" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><SubjectsPage /></ProtectedRoute>} />
-            <Route path="/sessions" element={<ProtectedRoute roles={["admin"]}><SessionsPage /></ProtectedRoute>} />
-            <Route path="/attendance" element={<ProtectedRoute><AttendancePage /></ProtectedRoute>} />
-            <Route path="/assignments" element={<ProtectedRoute roles={["admin", "staff", "student"]}><AssignmentsPage /></ProtectedRoute>} />
-            <Route path="/timetable" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><TimetablePage /></ProtectedRoute>} />
-            <Route path="/exam-results" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><ExamResultsPage /></ProtectedRoute>} />
-            <Route path="/performance" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><PerformancePage /></ProtectedRoute>} />
-            <Route path="/placement" element={<ProtectedRoute roles={["admin", "staff", "student"]}><PlacementPage /></ProtectedRoute>} />
-            <Route path="/complaints" element={<ProtectedRoute roles={["admin", "student"]}><ComplaintsPage /></ProtectedRoute>} />
-            <Route path="/fees" element={<ProtectedRoute><FeesPage /></ProtectedRoute>} />
-            <Route path="/trust-score" element={<ProtectedRoute roles={["admin", "student"]}><TrustScorePage /></ProtectedRoute>} />
-            <Route path="/student-health" element={<ProtectedRoute roles={["admin", "staff", "student"]}><StudentHealthPage /></ProtectedRoute>} />
-            <Route path="/smart-alerts" element={<ProtectedRoute roles={["admin"]}><SmartAlertsPage /></ProtectedRoute>} />
-            <Route path="/risk-timeline" element={<ProtectedRoute roles={["admin"]}><RiskTimelinePage /></ProtectedRoute>} />
-            <Route path="/incident-reports" element={<ProtectedRoute roles={["admin"]}><IncidentReportsPage /></ProtectedRoute>} />
-            <Route path="/complaint-analytics" element={<ProtectedRoute roles={["admin"]}><ComplaintAnalyticsPage /></ProtectedRoute>} />
-            <Route path="/admin-control" element={<ProtectedRoute roles={["admin"]}><AdminControlPage /></ProtectedRoute>} />
-            <Route path="/security" element={<ProtectedRoute roles={["admin", "staff"]}><SecurityPage /></ProtectedRoute>} />
-            <Route path="/blocked-ips" element={<ProtectedRoute roles={["admin"]}><BlockedIpsPage /></ProtectedRoute>} />
-            <Route path="/activity-logs" element={<ProtectedRoute roles={["admin"]}><ActivityLogsPage /></ProtectedRoute>} />
-            <Route path="/session-management" element={<ProtectedRoute roles={["admin"]}><SessionManagementPage /></ProtectedRoute>} />
-            <Route path="/my-security" element={<ProtectedRoute roles={["student"]}><MySecurityPage /></ProtectedRoute>} />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <Routes>
+              <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/students" element={<ProtectedRoute roles={["admin", "staff"]}><StudentsPage /></ProtectedRoute>} />
+              <Route path="/staff" element={<ProtectedRoute roles={["admin"]}><FacultyPage /></ProtectedRoute>} />
+              <Route path="/courses" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><CoursesPage /></ProtectedRoute>} />
+              <Route path="/subjects" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><SubjectsPage /></ProtectedRoute>} />
+              <Route path="/sessions" element={<ProtectedRoute roles={["admin"]}><SessionsPage /></ProtectedRoute>} />
+              <Route path="/attendance" element={<ProtectedRoute><AttendancePage /></ProtectedRoute>} />
+              <Route path="/assignments" element={<ProtectedRoute roles={["admin", "staff", "student"]}><AssignmentsPage /></ProtectedRoute>} />
+              <Route path="/timetable" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><TimetablePage /></ProtectedRoute>} />
+              <Route path="/exam-results" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><ExamResultsPage /></ProtectedRoute>} />
+              <Route path="/performance" element={<ProtectedRoute roles={["admin", "staff", "student", "parent"]}><PerformancePage /></ProtectedRoute>} />
+              <Route path="/placement" element={<ProtectedRoute roles={["admin", "staff", "student"]}><PlacementPage /></ProtectedRoute>} />
+              <Route path="/complaints" element={<ProtectedRoute roles={["admin", "student"]}><ComplaintsPage /></ProtectedRoute>} />
+              <Route path="/fees" element={<ProtectedRoute><FeesPage /></ProtectedRoute>} />
+              <Route path="/trust-score" element={<ProtectedRoute roles={["admin", "student"]}><TrustScorePage /></ProtectedRoute>} />
+              <Route path="/student-health" element={<ProtectedRoute roles={["admin", "staff", "student"]}><StudentHealthPage /></ProtectedRoute>} />
+              <Route path="/smart-alerts" element={<ProtectedRoute roles={["admin"]}><SmartAlertsPage /></ProtectedRoute>} />
+              <Route path="/risk-timeline" element={<ProtectedRoute roles={["admin"]}><RiskTimelinePage /></ProtectedRoute>} />
+              <Route path="/incident-reports" element={<ProtectedRoute roles={["admin"]}><IncidentReportsPage /></ProtectedRoute>} />
+              <Route path="/complaint-analytics" element={<ProtectedRoute roles={["admin"]}><ComplaintAnalyticsPage /></ProtectedRoute>} />
+              <Route path="/admin-control" element={<ProtectedRoute roles={["admin"]}><AdminControlPage /></ProtectedRoute>} />
+              <Route path="/security" element={<ProtectedRoute roles={["admin", "staff"]}><SecurityPage /></ProtectedRoute>} />
+              <Route path="/blocked-ips" element={<ProtectedRoute roles={["admin"]}><BlockedIpsPage /></ProtectedRoute>} />
+              <Route path="/activity-logs" element={<ProtectedRoute roles={["admin"]}><ActivityLogsPage /></ProtectedRoute>} />
+              <Route path="/session-management" element={<ProtectedRoute roles={["admin"]}><SessionManagementPage /></ProtectedRoute>} />
+              <Route path="/my-security" element={<ProtectedRoute roles={["student"]}><MySecurityPage /></ProtectedRoute>} />
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
