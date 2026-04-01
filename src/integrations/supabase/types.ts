@@ -14,16 +14,363 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      announcements: {
+        Row: {
+          created_at: string
+          created_by: string
+          expires_at: string | null
+          id: string
+          message: string
+          priority: string
+          roles: string[]
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          expires_at?: string | null
+          id?: string
+          message: string
+          priority?: string
+          roles?: string[]
+          title: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          expires_at?: string | null
+          id?: string
+          message?: string
+          priority?: string
+          roles?: string[]
+          title?: string
+        }
+        Relationships: []
+      }
+      attendance: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          marked_by: string
+          status: Database["public"]["Enums"]["attendance_status"]
+          student_id: string
+          student_name: string
+          subject_name: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: string
+          marked_by: string
+          status?: Database["public"]["Enums"]["attendance_status"]
+          student_id: string
+          student_name: string
+          subject_name: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          marked_by?: string
+          status?: Database["public"]["Enums"]["attendance_status"]
+          student_id?: string
+          student_name?: string
+          subject_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      complaints: {
+        Row: {
+          anonymous: boolean
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          priority: Database["public"]["Enums"]["complaint_priority"]
+          status: Database["public"]["Enums"]["complaint_status"]
+          title: string
+          tracking_id: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          anonymous?: boolean
+          category?: string
+          created_at?: string
+          description: string
+          id?: string
+          image_url?: string | null
+          priority?: Database["public"]["Enums"]["complaint_priority"]
+          status?: Database["public"]["Enums"]["complaint_status"]
+          title: string
+          tracking_id: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          anonymous?: boolean
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          priority?: Database["public"]["Enums"]["complaint_priority"]
+          status?: Database["public"]["Enums"]["complaint_status"]
+          title?: string
+          tracking_id?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      fees: {
+        Row: {
+          created_at: string
+          due_date: string | null
+          id: string
+          paid: number
+          pending: number
+          semester: string | null
+          status: Database["public"]["Enums"]["fee_status"]
+          student_id: string
+          student_name: string
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          paid?: number
+          pending?: number
+          semester?: string | null
+          status?: Database["public"]["Enums"]["fee_status"]
+          student_id: string
+          student_name: string
+          total?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          paid?: number
+          pending?: number
+          semester?: string | null
+          status?: Database["public"]["Enums"]["fee_status"]
+          student_id?: string
+          student_name?: string
+          total?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fees_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_reports: {
+        Row: {
+          created_at: string
+          description: string
+          generated_by: string
+          id: string
+          severity: Database["public"]["Enums"]["incident_severity"]
+          status: string
+          title: string
+          type: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          generated_by: string
+          id?: string
+          severity?: Database["public"]["Enums"]["incident_severity"]
+          status?: string
+          title: string
+          type: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          generated_by?: string
+          id?: string
+          severity?: Database["public"]["Enums"]["incident_severity"]
+          status?: string
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      login_logs: {
+        Row: {
+          created_at: string
+          device: string
+          id: string
+          ip: string
+          risk_level: string
+          risk_score: number
+          success: boolean
+          user_id: string | null
+          user_name: string
+        }
+        Insert: {
+          created_at?: string
+          device: string
+          id?: string
+          ip: string
+          risk_level?: string
+          risk_score?: number
+          success?: boolean
+          user_id?: string | null
+          user_name: string
+        }
+        Update: {
+          created_at?: string
+          device?: string
+          id?: string
+          ip?: string
+          risk_level?: string
+          risk_score?: number
+          success?: boolean
+          user_id?: string | null
+          user_name?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      students: {
+        Row: {
+          created_at: string
+          department: string
+          email: string
+          enrollment_no: string
+          gpa: number
+          id: string
+          name: string
+          parent_user_id: string | null
+          semester: number
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          department: string
+          email: string
+          enrollment_no: string
+          gpa?: number
+          id?: string
+          name: string
+          parent_user_id?: string | null
+          semester?: number
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          department?: string
+          email?: string
+          enrollment_no?: string
+          gpa?: number
+          id?: string
+          name?: string
+          parent_user_id?: string | null
+          semester?: number
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "staff" | "student" | "parent"
+      attendance_status: "present" | "absent" | "late"
+      complaint_priority: "low" | "medium" | "high"
+      complaint_status: "open" | "in_progress" | "resolved" | "escalated"
+      fee_status: "paid" | "partial" | "pending" | "overdue"
+      incident_severity: "low" | "medium" | "high"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +497,13 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "staff", "student", "parent"],
+      attendance_status: ["present", "absent", "late"],
+      complaint_priority: ["low", "medium", "high"],
+      complaint_status: ["open", "in_progress", "resolved", "escalated"],
+      fee_status: ["paid", "partial", "pending", "overdue"],
+      incident_severity: ["low", "medium", "high"],
+    },
   },
 } as const
