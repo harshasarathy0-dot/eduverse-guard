@@ -39,14 +39,16 @@ import type { UserRole } from "@/lib/authContext";
 const queryClient = new QueryClient();
 
 function ProtectedRoute({ children, roles }: { children: ReactNode; roles?: UserRole[] }) {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, loading } = useAuth();
+  if (loading) return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" /></div>;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (roles && user && !roles.includes(user.role)) return <Navigate to="/dashboard" replace />;
   return <>{children}</>;
 }
 
 function PublicRoute({ children }: { children: ReactNode }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+  if (loading) return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" /></div>;
   if (isAuthenticated) return <Navigate to="/dashboard" replace />;
   return <>{children}</>;
 }
