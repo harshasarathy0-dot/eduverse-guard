@@ -57,11 +57,8 @@ export default function LoginPage() {
     }
 
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 700));
-
-    const creds = demoCredentials[selectedRole];
-    if (email === creds.email && password === creds.password) {
-      login(email, password, selectedRole);
+    const success = await login(email, password, selectedRole);
+    if (success) {
       navigate("/dashboard");
     } else {
       setError("Invalid email or password. Please try again.");
