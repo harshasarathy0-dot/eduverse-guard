@@ -1,42 +1,33 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { mockStudents, mockAttendance, mockCourses, mockLoginLogs } from "@/lib/mockData";
-import { mockFeePayments } from "@/lib/mockFees";
-import { mockAnnouncements } from "@/lib/announcements";
-
-// Helper: try API, fall back to mock
-async function fetchWithFallback<T>(path: string, fallback: T): Promise<T> {
-  try {
-    return await api.get<T>(path);
-  } catch {
-    return fallback;
-  }
-}
 
 // ─── Students ───
 export function useStudents() {
   return useQuery({
     queryKey: ["students"],
-    queryFn: () => fetchWithFallback("/users?role=student", mockStudents.map(s => ({
-      id: s.id,
-      name: s.name,
-      email: s.email,
-      enrollment_no: s.enrollmentNo,
-      department: s.department,
-      semester: s.semester,
-      gpa: s.gpa,
-      status: s.status,
-    }))),
-    retry: false,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("students").select("*");
+      if (error) throw error;
+      return data;
+    },
   });
 }
 
 export function useAddStudent() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (student: { name: string; email: string; department: string; semester: number; enrollment_no: string }) =>
-      api.post("/users/create", { ...student, role: "student", password: "student123" }),
+    mutationFn: async (student: { name: string; email: string; department: string; semester: number; enrollment_no: string }) => {
+      const { data, error } = await supabase.from("students").insert({
+        name: student.name,
+        email: student.email,
+        department: student.department,
+        semester: student.semester,
+        enrollment_no: student.enrollment_no,
+      }).select().single();
+      if (error) throw error;
+      return data;
+    },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["students"] }); toast.success("Student added"); },
     onError: (err: Error) => toast.error(err.message),
   });
@@ -46,24 +37,22 @@ export function useAddStudent() {
 export function useAttendance() {
   return useQuery({
     queryKey: ["attendance"],
-    queryFn: () => fetchWithFallback("/attendance", mockAttendance.map(a => ({
-      id: a.id,
-      student_id: a.studentId,
-      student_name: a.studentName,
-      subject_name: a.subjectName,
-      date: a.date,
-      status: a.status,
-      marked_by: a.markedBy,
-    }))),
-    retry: false,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("attendance").select("*");
+      if (error) throw error;
+      return data;
+    },
   });
 }
 
 export function useMarkAttendance() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (record: { student_id: number; date: string; status: string; marked_by: number }) =>
-      api.post("/attendance/mark", record),
+    mutationFn: async (record: { student_id: string; student_name: string; subject_name: string; date: string; status: "present" | "absent" | "late"; marked_by: string }) => {
+      const { data, error } = await supabase.from("attendance").insert(record).select().single();
+      if (error) throw error;
+      return data;
+    },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["attendance"] }); toast.success("Attendance marked"); },
     onError: (err: Error) => toast.error(err.message),
   });
@@ -73,18 +62,11 @@ export function useMarkAttendance() {
 export function useFees() {
   return useQuery({
     queryKey: ["fees"],
-    queryFn: () => fetchWithFallback("/fees", mockFeePayments.map(f => ({
-      id: f.id,
-      student_id: f.studentId,
-      student_name: f.studentName,
-      total: f.amount,
-      paid: f.paidAmount,
-      pending: f.amount - f.paidAmount,
-      status: f.status,
-      semester: null,
-      due_date: null,
-    }))),
-    retry: false,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("fees").select("*");
+      if (error) throw error;
+      return data;
+    },
   });
 }
 
@@ -92,16 +74,22 @@ export function useFees() {
 export function useComplaints() {
   return useQuery({
     queryKey: ["complaints"],
-    queryFn: () => fetchWithFallback("/complaints", []),
-    retry: false,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("complaints").select("*");
+      if (error) throw error;
+      return data;
+    },
   });
 }
 
 export function useAddComplaint() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (complaint: { description: string; image?: string }) =>
-      api.post("/complaints", complaint),
+    mutationFn: async (complaint: { title: string; description: string; tracking_id: string; category?: string; anonymous?: boolean; image_url?: string; user_id?: string }) => {
+      const { data, error } = await supabase.from("complaints").insert(complaint).select().single();
+      if (error) throw error;
+      return data;
+    },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["complaints"] }); toast.success("Complaint submitted"); },
     onError: (err: Error) => toast.error(err.message),
   });
@@ -111,37 +99,19 @@ export function useAddComplaint() {
 export function useLoginLogs() {
   return useQuery({
     queryKey: ["login_logs"],
-    queryFn: () => fetchWithFallback("/auth/logs", mockLoginLogs.map(l => ({
-      id: l.id,
-      user_id: l.userId,
-      user_name: l.userName,
-      ip: l.ip,
-      device: l.device,
-      created_at: l.timestamp,
-      risk_score: l.riskScore,
-      risk_level: l.riskLevel,
-      success: l.success,
-    }))),
-    retry: false,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("login_logs").select("*").order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
   });
 }
 
-// ─── Courses ───
+// ─── Courses (no table yet, return empty) ───
 export function useCourses() {
   return useQuery({
     queryKey: ["courses"],
-    queryFn: () => fetchWithFallback("/courses", mockCourses.map(c => ({
-      id: c.id,
-      code: c.code,
-      name: c.name,
-      department: c.department,
-      credits: c.credits,
-      faculty: c.faculty,
-      enrolled: c.enrolled,
-      capacity: c.capacity,
-      semester: c.semester,
-    }))),
-    retry: false,
+    queryFn: () => Promise.resolve([]),
   });
 }
 
@@ -149,20 +119,36 @@ export function useCourses() {
 export function useAnnouncements() {
   return useQuery({
     queryKey: ["announcements"],
-    queryFn: () => Promise.resolve(mockAnnouncements),
-    retry: false,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("announcements").select("*").order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
   });
 }
 
-// ─── Incident Reports (mock fallback) ───
+// ─── Incident Reports ───
 export function useIncidentReports() {
-  return useQuery({ queryKey: ["incident_reports"], queryFn: () => Promise.resolve([]) });
+  return useQuery({
+    queryKey: ["incident_reports"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("incident_reports").select("*").order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
 }
 
-// ─── Image Upload (no-op for local) ───
+// ─── Image Upload ───
 export function useUploadComplaintImage() {
   return useMutation({
-    mutationFn: async (_file: File) => "",
+    mutationFn: async (file: File) => {
+      const path = `${Date.now()}-${file.name}`;
+      const { error } = await supabase.storage.from("complaint-images").upload(path, file);
+      if (error) throw error;
+      const { data } = supabase.storage.from("complaint-images").getPublicUrl(path);
+      return data.publicUrl;
+    },
     onError: (err: Error) => toast.error(`Upload failed: ${err.message}`),
   });
 }
