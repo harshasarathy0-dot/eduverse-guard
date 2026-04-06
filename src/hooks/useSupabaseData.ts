@@ -115,6 +115,31 @@ export function useCourses() {
   });
 }
 
+// ─── Faculty ───
+export function useFaculty() {
+  return useQuery({
+    queryKey: ["faculty"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("faculty").select("*").order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+export function useAddFaculty() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (faculty: { name: string; email: string; department: string; designation: string }) => {
+      const { data, error } = await supabase.from("faculty").insert(faculty).select().single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["faculty"] }); toast.success("Faculty added"); },
+    onError: (err: Error) => toast.error(err.message),
+  });
+}
+
 // ─── Announcements ───
 export function useAnnouncements() {
   return useQuery({

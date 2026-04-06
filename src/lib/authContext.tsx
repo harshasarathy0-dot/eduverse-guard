@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { api, setToken, clearToken } from "@/lib/api";
+import { supabase } from "@/integrations/supabase/client";
 
 export type UserRole = "admin" | "staff" | "student" | "parent";
 
 export interface AuthUser {
-  id: number;
+  id: string;
   name: string;
   email: string;
   role: UserRole;
@@ -19,60 +19,87 @@ interface AuthContextType {
   loading: boolean;
 }
 
-// Mock credentials for when backend is unavailable
-const mockUsers: Record<string, { password: string; user: AuthUser }> = {
-  "admin@eduverse.com": { password: "admin123", user: { id: 1, name: "Admin User", email: "admin@eduverse.com", role: "admin", avatar: "A" } },
-  "sarah@eduverse.com": { password: "staff123", user: { id: 2, name: "Dr. Sarah Chen", email: "sarah@eduverse.com", role: "staff", avatar: "S" } },
-  "james@eduverse.com": { password: "student123", user: { id: 3, name: "James Wilson", email: "james@eduverse.com", role: "student", avatar: "J" } },
-  "robert@eduverse.com": { password: "parent123", user: { id: 6, name: "Robert Wilson", email: "robert@eduverse.com", role: "parent", avatar: "R" } },
-};
-
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Resolve role + profile from Supabase for a given user id/email
+  async function resolveUser(uid: string, email: string, name?: string): Promise<AuthUser | null> {
+    // Get role
+    const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", uid);
+    const role = (roles && roles.length > 0 ? roles[0].role : "student") as UserRole;
+
+    // Get profile
+    const { data: profiles } = await supabase.from("profiles").select("name, avatar_url").eq("user_id", uid);
+    const profile = profiles && profiles.length > 0 ? profiles[0] : null;
+    const displayName = profile?.name || name || email;
+
+    return {
+      id: uid,
+      name: displayName,
+      email,
+      role,
+      avatar: displayName.charAt(0).toUpperCase(),
+    };
+  }
+
   useEffect(() => {
-    const stored = localStorage.getItem("eduverse_user");
-    if (stored) {
-      try {
-        setUser(JSON.parse(stored));
-      } catch { /* ignore */ }
-    }
-    setLoading(false);
+    // Check existing session
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) {
+        const resolved = await resolveUser(session.user.id, session.user.email || "");
+        setUser(resolved);
+      }
+      setLoading(false);
+    });
+
+    // Listen to auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const resolved = await resolveUser(session.user.id, session.user.email || "");
+        setUser(resolved);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const login = async (email: string, password: string, _role: UserRole): Promise<boolean> => {
-    // Try backend first
-    try {
-      const res = await api.post<{ token: string; user: { id: number; name: string; email: string; role: UserRole } }>("/auth/login", { email, password });
-      setToken(res.token);
-      const authUser: AuthUser = {
-        id: res.user.id,
-        name: res.user.name,
-        email: res.user.email,
-        role: res.user.role,
-        avatar: res.user.name?.charAt(0)?.toUpperCase() || "U",
-      };
-      setUser(authUser);
-      localStorage.setItem("eduverse_user", JSON.stringify(authUser));
+    // Try sign in first
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      // If user doesn't exist, auto-register for demo convenience
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { name: email.split("@")[0] } },
+      });
+      if (signUpError || !signUpData.user) return false;
+
+      // Assign the requested role
+      await supabase.from("user_roles").insert({ user_id: signUpData.user.id, role: _role });
+      // Create profile
+      await supabase.from("profiles").insert({ user_id: signUpData.user.id, name: email.split("@")[0], email });
+
+      const resolved = await resolveUser(signUpData.user.id, email, email.split("@")[0]);
+      setUser(resolved);
       return true;
-    } catch {
-      // Fallback to mock credentials when backend is unavailable
-      const mock = mockUsers[email.toLowerCase()];
-      if (mock && mock.password === password) {
-        setUser(mock.user);
-        localStorage.setItem("eduverse_user", JSON.stringify(mock.user));
-        return true;
-      }
-      return false;
     }
+
+    if (data.user) {
+      const resolved = await resolveUser(data.user.id, data.user.email || "");
+      setUser(resolved);
+      return true;
+    }
+    return false;
   };
 
   const logout = async () => {
-    clearToken();
-    localStorage.removeItem("eduverse_user");
+    await supabase.auth.signOut();
     setUser(null);
   };
 
