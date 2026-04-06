@@ -133,6 +133,45 @@ export type Database = {
         }
         Relationships: []
       }
+      faculty: {
+        Row: {
+          courses: number
+          created_at: string
+          department: string
+          designation: string
+          email: string
+          id: string
+          join_date: string
+          name: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          courses?: number
+          created_at?: string
+          department: string
+          designation?: string
+          email: string
+          id?: string
+          join_date?: string
+          name: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          courses?: number
+          created_at?: string
+          department?: string
+          designation?: string
+          email?: string
+          id?: string
+          join_date?: string
+          name?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       fees: {
         Row: {
           created_at: string
