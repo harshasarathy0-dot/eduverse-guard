@@ -107,11 +107,28 @@ export function useLoginLogs() {
   });
 }
 
-// ─── Courses (no table yet, return empty) ───
+// ─── Courses ───
 export function useCourses() {
   return useQuery({
     queryKey: ["courses"],
-    queryFn: () => Promise.resolve([]),
+    queryFn: async () => {
+      const { data, error } = await supabase.from("courses").select("*").order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+export function useAddCourse() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (course: { code: string; name: string; department: string; credits: number; faculty: string; capacity: number; semester?: string }) => {
+      const { data, error } = await supabase.from("courses").insert(course).select().single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["courses"] }); toast.success("Course added"); },
+    onError: (err: Error) => toast.error(err.message),
   });
 }
 
