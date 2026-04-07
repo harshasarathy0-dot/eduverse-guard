@@ -133,6 +133,48 @@ export type Database = {
         }
         Relationships: []
       }
+      courses: {
+        Row: {
+          capacity: number
+          code: string
+          created_at: string
+          credits: number
+          department: string
+          enrolled: number
+          faculty: string
+          id: string
+          name: string
+          semester: string
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number
+          code: string
+          created_at?: string
+          credits?: number
+          department: string
+          enrolled?: number
+          faculty?: string
+          id?: string
+          name: string
+          semester?: string
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number
+          code?: string
+          created_at?: string
+          credits?: number
+          department?: string
+          enrolled?: number
+          faculty?: string
+          id?: string
+          name?: string
+          semester?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       faculty: {
         Row: {
           courses: number
